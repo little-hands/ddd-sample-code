@@ -33,7 +33,6 @@ internal class CreateTaskUseCaseTest(
          *
          * を参照してください
          */
-        /** [com.example.demo.domain.task_report.TaskReportEventListener] 参照 */
         val fetchedReport = taskReportRepository.fetchByTaskId(taskId)!!
         assertEquals("タスクが作成されました。  タスク名: 新規機能開発", fetchedReport.detail)
     }
