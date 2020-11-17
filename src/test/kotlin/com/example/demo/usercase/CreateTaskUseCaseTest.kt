@@ -23,6 +23,17 @@ internal class CreateTaskUseCaseTest(
         val fetchTask = taskRepository.fetchById(taskId)!!
         assertEquals("新規機能開発", fetchTask.name)
 
+        // ドメインイベントを経由して、タスクレポートが作成されている
+        /**
+         * ドメインイベントを投げる処理は
+         * [com.example.demo.domain.shared.Repository]
+         *
+         * ドメインイベントを拾う処理は
+         * [com.example.demo.domain.task_report.TaskReportEventListener]
+         *
+         * を参照してください
+         */
+        /** [com.example.demo.domain.task_report.TaskReportEventListener] 参照 */
         val fetchedReport = taskReportRepository.fetchByTaskId(taskId)!!
         assertEquals("タスクが作成されました。  タスク名: 新規機能開発", fetchedReport.detail)
     }
