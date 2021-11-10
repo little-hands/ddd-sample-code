@@ -12,7 +12,6 @@ internal class TaskTest {
         val mockSeed: DomainEventSeed = mockk()
         val task = Task("新規機能開発", mockSeed)
 
-
         // then:
         // 引数で渡した名前でタスクが作成されていること
         assertEquals("新規機能開発", task.name)
