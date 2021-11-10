@@ -1,4 +1,4 @@
-package com.example.demo.domain.task
+package com.example.demo.domain.shared.other.task
 
 import com.example.demo.domain.shared.AggregateRoot
 import com.example.demo.domain.shared.DomainEvent
@@ -8,7 +8,7 @@ import java.util.*
 /**
  * タスクを表すクラス
  */
-class Task private constructor(val taskId: TaskId, val name: String) : AggregateRoot() {
+class Task2 private constructor(val taskId: TaskId, val name: String) : AggregateRoot() {
     constructor(name: String, seed: DomainEventSeed) : this(taskId = TaskId(), name = name) {
         super.addDomainEvent(TaskCreatedEvent(taskId, name, seed))
     }

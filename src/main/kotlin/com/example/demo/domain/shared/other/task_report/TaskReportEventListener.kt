@@ -1,6 +1,6 @@
-package com.example.demo.domain.task_report
+package com.example.demo.domain.shared.other.task_report
 
-import com.example.demo.domain.task.TaskCreatedEvent
+import com.example.demo.domain.shared.other.task.TaskCreatedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 

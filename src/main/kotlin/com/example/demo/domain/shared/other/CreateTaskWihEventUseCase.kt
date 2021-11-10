@@ -1,15 +1,15 @@
-package com.example.demo.usercase
+package com.example.demo.domain.shared.other
 
 import com.example.demo.domain.shared.DomainEventSeedFactory
-import com.example.demo.domain.task.Task
-import com.example.demo.domain.task.TaskId
-import com.example.demo.domain.task.TaskRepository
+import com.example.demo.domain.shared.other.task.Task2
+import com.example.demo.domain.shared.other.task.TaskId
+import com.example.demo.domain.shared.other.task.TaskRepository2
 import org.springframework.stereotype.Component
 
 @Component
-class CreateTaskUseCase(
-    private val taskRepository: TaskRepository,
-    private val domainEventSeedFactory: DomainEventSeedFactory
+class CreateTaskWihEventUseCase(
+  private val taskRepository: TaskRepository2,
+  private val domainEventSeedFactory: DomainEventSeedFactory
 ) {
     fun execute(taskName: String): TaskId {
         /*
@@ -22,7 +22,7 @@ class CreateTaskUseCase(
          * seedを渡すことでわかるようにしています。
          */
         val domainEventSeed = domainEventSeedFactory.createSeed()
-        val task = Task("新規機能開発", domainEventSeed)
+        val task = Task2("新規機能開発", domainEventSeed)
         taskRepository.insert(task)
         return task.taskId
     }

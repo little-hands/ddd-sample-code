@@ -1,16 +1,16 @@
-package com.example.demo.domain.task
+package com.example.demo.domain.shared.other.task
 
 import com.example.demo.domain.shared.DomainEventSeed
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class TaskTest {
+internal class Task2Test {
     @Test
     fun `タスク作成`() {
         // when:
         val mockSeed: DomainEventSeed = mockk()
-        val task = Task("新規機能開発", mockSeed)
+        val task = Task2("新規機能開発", mockSeed)
 
         // then:
         // 引数で渡した名前でタスクが作成されていること

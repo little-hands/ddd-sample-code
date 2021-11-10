@@ -1,8 +1,8 @@
-package com.example.demo.domain.task_report
+package com.example.demo.domain.shared.other.task_report
 
 import com.example.demo.domain.shared.AggregateRoot
-import com.example.demo.domain.task.TaskCreatedEvent
-import com.example.demo.domain.task.TaskId
+import com.example.demo.domain.shared.other.task.TaskCreatedEvent
+import com.example.demo.domain.shared.other.task.TaskId
 import java.util.*
 
 /**
