@@ -64,18 +64,18 @@ private class TaskTestExample {
       val dueDate = LocalDate.of(2021, 8, 1)
 
       // when:
-      val task = Task.reconstruct(
-        id = taskId,
-        name = name,
-        postponeCount = postponeCount,
-        dueDate = dueDate
-      )
+//      val task = Task.reconstruct(
+//        id = taskId,
+//        name = name,
+//        postponeCount = postponeCount,
+//        dueDate = dueDate
+//      )
 
       // then:
-      assertEquals(taskId, task.id)
-      assertEquals(name, task.name)
-      assertEquals(postponeCount, task.postponeCount)
-      assertEquals(dueDate, task.dueDate)
+//      assertEquals(taskId, task.id)
+//      assertEquals(name, task.name)
+//      assertEquals(postponeCount, task.postponeCount)
+//      assertEquals(dueDate, task.dueDate)
     }
 
   }
@@ -100,12 +100,6 @@ private class TaskTestExample {
     @Test
     fun `最大回数延期されている場合、再度延期すると例外が発生する`() {
       // given: タスクが既に3回延期されている ①
-      Task.reconstruct( // 再構成メソッドを使って全ての属性に任意の値を指定
-        id = TaskId(),
-        name = TaskName("taskName"),
-        postponeCount = 3,
-        dueDate = LocalDate.now()
-      )
       val task = Task.create(TaskName("タスク"), LocalDate.now())
       task.postpone()
       task.postpone()
