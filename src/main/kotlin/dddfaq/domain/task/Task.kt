@@ -17,7 +17,6 @@ enum class TaskStatus {
 class Task private constructor(
     id: TaskId, name: TaskName, postponeCount: Int, dueDate: LocalDate, status: TaskStatus
 ) {
-    TaskRecord
 
     // 不変な属性
     val id = id
