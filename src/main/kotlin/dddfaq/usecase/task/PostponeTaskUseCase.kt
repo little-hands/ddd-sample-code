@@ -1,4 +1,4 @@
-package dddfaq.task
+package dddfaq.usecase.task
 
 import dddfaq.domain.task.TaskId
 import dddfaq.domain.task.TaskRepository

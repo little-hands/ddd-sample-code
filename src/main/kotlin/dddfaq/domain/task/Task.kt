@@ -4,12 +4,6 @@ import dddfaq.domain.shared.DomainException
 import dddfaq.domain.shared.ULID
 import java.time.LocalDate
 
-class Task2(
-    val id: TaskId, val name: TaskName, var postponeCount: Int, val dueDate: LocalDate, val status: TaskStatus
-) {
-
-}
-
 enum class TaskStatus {
     未完了, 完了
 }
@@ -26,6 +20,9 @@ class Task private constructor(
     var postponeCount = postponeCount
         private set
     var dueDate = dueDate
+        private set
+
+    var status = status
         private set
 
     // ユーザーID、ステータスは省略

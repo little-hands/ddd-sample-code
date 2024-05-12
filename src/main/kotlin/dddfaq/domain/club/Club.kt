@@ -1,6 +1,9 @@
 package dddfaq.domain.club
 
 import dddfaq.domain.shared.DomainException
+import dddfaq.domain.student.StudentId
+
+class ClubMember(val studentId: StudentId)
 
 class Club(
     val id: ClubId,
@@ -11,7 +14,7 @@ class Club(
     var status = status
         private set  // setterをprivateにしている
 
-    fun approve() {
+    fun approve(authorizedRole: AuthorizedRole) {
         if (members.size < 5) {
             throw DomainException("部員が4人以下なので承認できません")
         }
@@ -32,18 +35,18 @@ class Club(
     }
 }
 
+data class AuthorizedRole(
+    val role :Role
+)
+
+enum class Role {
+    学生, 教員, 事務職員
+}
+
 enum class ClubStatus {
     未承認, 承認
 }
 
-class ClubMember(val studentId: StudentId)
 
 data class ClubId(val value: String)
 
-interface ClubRepository {
-    fun insert(club: Club)
-    fun findById(clubId: ClubId): Club
-
-//    fun addMember(clubId: ClubId, clubMember: ClubMember) // x: リポジトリの責務を超えている
-//    fun approve(clubId: ClubId) // x: リポジトリの責務を超えている
-}

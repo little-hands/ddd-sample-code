@@ -1,4 +1,4 @@
-package dddfaq.domain.club
+package dddfaq.domain.student
 
 /** 生徒 */
 class Student(val id: StudentId, val name: String)
