@@ -2,42 +2,42 @@ package dddfaq.domain.task
 
 import dddfaq.domain.shared.DomainException
 import dddfaq.domain.shared.ULID
+import dddfaq.domain.user.UserId
 import java.time.LocalDate
 
 enum class TaskStatus {
     未完了, 完了
 }
 
-class Task private constructor(
-    id: TaskId, name: TaskName, postponeCount: Int, dueDate: LocalDate, status: TaskStatus
+class Task private constructor( // ①
+    id: TaskId, name: TaskName, userId: UserId,
+    status: TaskStatus, postponeCount: Int, dueDate: LocalDate
 ) {
-
     // 不変な属性
     val id = id
     val name = name
+    val userId = userId
 
-    // 可変な属性
+    // ② 可変な属性
+    var status = status
+        private set
     var postponeCount = postponeCount
         private set
     var dueDate = dueDate
         private set
 
-    var status = status
-        private set
-
-    // ユーザーID、ステータスは省略
-
     companion object {
 
-        /** 新しいタスクを作成します */
-        fun create(name: TaskName, dueDate: LocalDate): Task { // ③
+        private const val MAX_POSTPONE_COUNT = 3
+
+        /** 新しいタスクを作成します*/
+        fun create(name: TaskName, dueDate: LocalDate, userId: UserId): Task { //③
             return Task(
                 id = TaskId(),
-                postponeCount = 0, // o: 3回まで、というのを実現するためには0から始まって欲しい
-                status = TaskStatus.未完了, // o: ドメインモデル図にある通り、未完了から始まっている
-                // 以下は引数の値を使用する
                 name = name,
-                dueDate = dueDate
+                userId = userId,
+                status = TaskStatus.未完了,
+                postponeCount = 0, dueDate = dueDate
             )
         }
 
@@ -46,7 +46,8 @@ class Task private constructor(
             name: TaskName,
             postponeCount: Int,
             dueDate: LocalDate,
-            status: TaskStatus
+            status: TaskStatus,
+            userId: UserId
         ): Task {
             return Task(
                 // ①
@@ -54,11 +55,10 @@ class Task private constructor(
                 name = name,
                 postponeCount = postponeCount,
                 dueDate = dueDate,
-                status = status
+                status = status,
+                userId = userId
             )
         }
-
-        private const val MAX_POSTPONE_COUNT = 3
     }
 
     /** タスクの期日を延期します */
