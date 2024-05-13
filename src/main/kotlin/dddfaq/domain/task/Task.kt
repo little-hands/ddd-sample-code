@@ -32,6 +32,7 @@ class Task private constructor( // ①
 
         /** 新しいタスクを作成します*/
         fun create(name: TaskName, dueDate: LocalDate, userId: UserId): Task { //③
+            // ここでタスク名の10文字チェックをする
             return Task(
                 id = TaskId(),
                 name = name,

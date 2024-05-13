@@ -26,7 +26,7 @@ class TaskInMemoryRepository : TaskRepository {
 
     override fun findById(taskId: TaskId): Task? {
         // 実際はselect文を実行する
-        val nullableTaskDbData = map[taskId]
+        val nullableTaskDbData: TaskDbData? = map[taskId]
 
         // 取得できた値の詰め替え
         if (nullableTaskDbData == null) {

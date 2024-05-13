@@ -22,7 +22,7 @@ private class FetchTaskDetailUseCaseTest {
     @Test
     fun `2つのリポジトリから値が取得できる場合、結果がDTOに詰め替えて返される`() {
         // given: ユーザーリポジトリ、タスクリポジトリが値を返す
-        val user = TestUserFactory.create() // ②
+        val user = TestUserFactory.create(name="user1") // ②
         every { userRepository.findById(user.id) }.returns(user) // ③
         val task = TestTaskFactory.create(userId = user.id) // ④
         every { taskRepository.findById(task.id) }.returns(task) // ⑤

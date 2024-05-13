@@ -1,9 +1,6 @@
 package dddfaq.usecase.task
 
-import dddfaq.domain.task.Task
-import dddfaq.domain.task.TaskName
-import dddfaq.domain.task.TaskRepository
-import dddfaq.domain.task.TaskStatus
+import dddfaq.domain.task.*
 import dddfaq.domain.user.UserId
 import io.mockk.*
 import org.junit.jupiter.api.Assertions.assertEquals

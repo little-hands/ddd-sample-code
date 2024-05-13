@@ -9,6 +9,7 @@ import dddfaq.domain.user.UserId
 import dddfaq.domain.user.UserRepository
 import dddfaq.usecase.shared.UseCaseException
 import org.springframework.stereotype.Component
+import java.lang.IllegalStateException
 
 @Component
 class FetchTaskDetailUseCase {
@@ -29,7 +30,7 @@ class FetchTaskDetailUseCase {
     // private methods ------------------------
     private fun findUser(userId: UserId): User {
         return userRepository.findById(userId)
-            ?: throw UseCaseException("ユーザーが見つかりません")
+            ?: throw IllegalStateException("ユーザーが見つかりません")
     }
 }
 
@@ -43,7 +44,8 @@ data class FetchTaskDetailDto(
 ) {
     constructor(task: Task, user: User) : this(
         taskId = task.id.value, name = task.name.value, status = task.status,
-        postponeCount = task.postponeCount, userId = task.userId.value,
+        postponeCount = task.postponeCount,
+        userId = task.userId.value,
         userName = user.name.value
     )
 }

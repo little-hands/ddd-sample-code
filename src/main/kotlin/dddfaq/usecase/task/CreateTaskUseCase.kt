@@ -11,6 +11,7 @@ import java.time.LocalDate
 @Component
 class CreateTaskUseCase(private val taskRepository: TaskRepository) {
     fun execute(taskName: String, dueDate: LocalDate, userId: UserId): TaskId {
+
         val task = Task.create(TaskName(taskName), dueDate, userId)
         taskRepository.insert(task)
         return task.id

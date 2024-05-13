@@ -7,7 +7,7 @@ import org.junit.jupiter.api.assertThrows
 
 private class TaskNameTest {
     @Test
-    fun `10文字以下の値を渡すと、正常にインスタンスが生成される`() {
+    fun `10文字以下の値を渡すと、引数の値を保持したインスタンスが生成される`() {
         // when:
         val taskName = TaskName("1234567890")
 
