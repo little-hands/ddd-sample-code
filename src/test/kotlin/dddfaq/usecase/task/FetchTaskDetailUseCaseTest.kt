@@ -1,5 +1,6 @@
 package dddfaq.usecase.task
 
+import dddfaq.domain.task.TaskId
 import dddfaq.domain.task.TaskRepository
 import dddfaq.test.factory.TestUserFactory
 import dddfaq.domain.user.UserRepository
@@ -7,6 +8,7 @@ import dddfaq.test.factory.TestTaskFactory
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 private class FetchTaskDetailUseCaseTest {
@@ -38,5 +40,18 @@ private class FetchTaskDetailUseCaseTest {
             userName = user.name.value
         )
         assertEquals(expectDto, actualDto) // ⑦
+    }
+
+    @Test
+    fun `タスクリポジトリから返される値がnullの場合、nullが返される`() { // ①
+        // given:
+        val taskId = TaskId()
+        every { taskRepository.findById(taskId) }.returns(null) // ②
+
+        // when:
+        val actualDto = useCase.execute(taskId)
+
+        // then:
+        assertNull(actualDto) // ③
     }
 }
