@@ -1,15 +1,19 @@
 package dddfaq.infra.repository
 
+import dddfaq.domain.shared.DomainException
+import dddfaq.domain.shared.EntityNotFoundException
 import dddfaq.domain.task.Task
 import dddfaq.domain.task.TaskId
 import dddfaq.domain.task.TaskName
 import dddfaq.domain.task.TaskStatus
 import dddfaq.domain.user.User
 import dddfaq.domain.user.UserId
+import dddfaq.test.factory.TestTaskFactory
 import dddfaq.test.factory.TestUserFactory
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDate
@@ -20,15 +24,19 @@ private class TaskInMemoryRepositoryTest {
 
     // insertメソッドのテスト
     @Test
-    fun `insertしたものがfindByIdで取得できる`() {
+    fun `insert_findById_insertしたものがfindByIdで取得できる`() {
         // given:
         // ユーザーが既に作成されている
         val user = TestUserFactory.create()
 
-        val createdTask = Task.create(
-            name = TaskName("新しいタスク"),
-            dueDate = LocalDate.now(),
-            userId = user.id
+        // タスクを作成する
+        val createdTask = Task.reconstruct(
+            id = TaskId("TaskId"),
+            name = TaskName("TaskName"),
+            userId = UserId("UserId"),
+            status = TaskStatus.未完了,
+            postponeCount = 0,
+            dueDate = LocalDate.now()
         )
 
         // when: インサートし、結果をID指定で取得する⑤
@@ -53,4 +61,53 @@ private class TaskInMemoryRepositoryTest {
         assertNull(result)
     }
 
+    @Test
+    fun `update_値が更新される`() {
+        // given:
+        // タスクを作成する
+        val taskId = TaskId("TaskId")
+        val createdTask = Task.reconstruct(
+            id = taskId,
+            name = TaskName("TaskName"),
+            userId = UserId("UserId1"),
+            status = TaskStatus.未完了,
+            postponeCount = 0,
+            dueDate = LocalDate.of(2024, 1, 1)
+        )
+        taskRepository.insert(createdTask)
+
+        // when:
+        // タスクID以外の値が全て異なるインスタンスを作成し、更新する
+        val updatedTask = Task.reconstruct(
+            id = taskId,
+            name = TaskName("UpdatdName"),
+            userId = UserId("UserId2"),
+            status = TaskStatus.完了,
+            postponeCount = 1,
+            dueDate = LocalDate.of(2024, 1, 2)
+        )
+        taskRepository.update(updatedTask)
+        val foundTask = taskRepository.findById(taskId)!!
+
+        // then:
+        assertEquals(updatedTask.id, foundTask.id)
+        assertEquals(updatedTask.name, foundTask.name)
+        assertEquals(updatedTask.userId, foundTask.userId)
+        assertEquals(updatedTask.status, foundTask.status)
+        assertEquals(updatedTask.postponeCount, foundTask.postponeCount)
+        assertEquals(updatedTask.dueDate, foundTask.dueDate)
+    }
+
+    @Test
+    fun `update_ID指定してインスタンスが存在しなかったら例外`() {
+        // when:
+        val updatedTask = TestTaskFactory.create(
+            taskID = TaskId("NotExistsId")
+        )
+        val executable = { taskRepository.update(updatedTask) }
+
+        // then:
+        val exception = assertThrows<EntityNotFoundException>(executable)
+        assertEquals("タスクが見つかりません", exception.message)
+    }
 }
