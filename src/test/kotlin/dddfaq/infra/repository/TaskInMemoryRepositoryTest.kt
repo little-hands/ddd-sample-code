@@ -1,12 +1,10 @@
 package dddfaq.infra.repository
 
-import dddfaq.domain.shared.DomainException
 import dddfaq.domain.shared.EntityNotFoundException
 import dddfaq.domain.task.Task
 import dddfaq.domain.task.TaskId
 import dddfaq.domain.task.TaskName
 import dddfaq.domain.task.TaskStatus
-import dddfaq.domain.user.User
 import dddfaq.domain.user.UserId
 import dddfaq.test.factory.TestTaskFactory
 import dddfaq.test.factory.TestUserFactory
@@ -14,8 +12,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDate
 
 // @SpringBootTest
