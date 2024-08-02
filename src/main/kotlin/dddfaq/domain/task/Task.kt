@@ -63,11 +63,17 @@ class Task private constructor( // ①
     }
 
     /** タスクの期日を延期します */
-    fun postpone() {
+    fun postpone(): Task {
         if (this.postponeCount >= MAX_POSTPONE_COUNT)
             throw DomainException("最大延期回数を超えています")
-        this.dueDate = dueDate.plusDays(1)
-        this.postponeCount += 1
+        return Task(
+            id = this.id,
+            name = this.name,
+            userId = this.userId,
+            status = this.status,
+            postponeCount = this.postponeCount + 1,
+            dueDate = this.dueDate.plusDays(1)
+        )
     }
 }
 
