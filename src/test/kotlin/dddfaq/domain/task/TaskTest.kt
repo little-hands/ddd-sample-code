@@ -41,24 +41,24 @@ private class TaskTest {
             val task = Task.create(TaskName("タスク"), dueDate, UserId("user1")) // ②
 
             // when:
-            task.postpone() // ③
+            val postponedTask = task.postpone() // ③
 
             // then: ④
-            assertEquals(LocalDate.of(2021, 8, 2), task.dueDate)
-            assertEquals(1, task.postponeCount)
+            assertEquals(LocalDate.of(2021, 8, 2), postponedTask.dueDate)
+            assertEquals(1, postponedTask.postponeCount)
         }
 
         @Test
         fun `最大回数延期されている場合、再度延期すると例外が発生する`() {
             // given: タスクが既に3回延期されている①
             val task = Task.create(TaskName("タスク"), LocalDate.now(), UserId("user1"))
-            task.postpone()
-            task.postpone()
-            task.postpone()
+            val task1 = task.postpone()
+            val task2 = task1.postpone()
+            val task3 = task2.postpone()
 
             // when:
             val target: () -> Unit = { // ②
-                task.postpone()
+                task3.postpone()
             }
 
             // then:

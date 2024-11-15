@@ -29,7 +29,7 @@ private class TaskInMemoryRepositoryTest {
         val createdTask = Task.reconstruct(
             id = TaskId("TaskId"),
             name = TaskName("TaskName"),
-            userId = UserId("UserId"),
+            userId = user.id,
             status = TaskStatus.未完了,
             postponeCount = 0,
             dueDate = LocalDate.now()
